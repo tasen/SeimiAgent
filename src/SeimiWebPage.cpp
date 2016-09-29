@@ -59,10 +59,9 @@ void SeimiPage::loadAllFinished(bool){
 
 void SeimiPage::renderFinalHtml(){
     if(!_script.isEmpty()){
-        QVariant evalResult;
-        evalResult = _sWebPage->mainFrame()->evaluateJavaScript(_script);
-        qDebug() << "[Seimi] - evaluateJavaScript result=" << evalResult;
-        qInfo()<< "[Seimi] evaluateJavaScript done. script=" << _script;
+        _evalResult = _sWebPage->mainFrame()->evaluateJavaScript(_script);
+        qDebug() << "[Seimi] - evaluateJavaScript result=" << _evalResult;
+        qInfo() << "[Seimi] evaluateJavaScript done. script=" << _script;
         QEventLoop eventLoop;
         QTimer::singleShot(_renderTime/2,&eventLoop,SLOT(quit()));
         eventLoop.exec();
@@ -75,6 +74,10 @@ void SeimiPage::renderFinalHtml(){
 
 QString SeimiPage::getContent(){
     return _content;
+}
+
+QString SeimiPage::getJSResult(){
+    return _evalResult.toString();
 }
 
 bool SeimiPage::isOver(){

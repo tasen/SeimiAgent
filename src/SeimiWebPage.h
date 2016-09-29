@@ -45,6 +45,7 @@ public:
     bool isOver();
     bool isProxySet();
     QString getContent();
+    QString getJSResult();
     void startLoad(const QString &url);
     void setProxy(QNetworkProxy &proxy);
     void setScript(QString &script);
@@ -58,6 +59,7 @@ private:
     QNetworkProxy _proxy;
     bool _isProxyHasBeenSet;
     QString _content;
+    QVariant _evalResult;
     bool _isContentSet;
     int _renderTime;
     QString _script;
