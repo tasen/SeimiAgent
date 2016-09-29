@@ -5,7 +5,7 @@ A headless,standalone webkit server which make grabing dynamic web page easier.
 
 # DownLoad #
 
-- [Linux v1.2.2 x64](http://seimidl.wanghaomiao.cn/seimiagent_linux_v1.2.2_x86_64.tar.gz)
+- [Linux v1.3.1 x64](http://seimidl.wanghaomiao.cn/seimiagent_linux_v1.3.1_x86_64.tar.gz)
 (support ubuntu14,ubuntu14+,centos6,contos6+)
 
 # Quick Start #
@@ -17,7 +17,16 @@ SeimiAgent will start and listen on the port that you set.Than you can use any h
 apache `httpclient` of java,`curl` of cmd,`httplib2` of python including, but not limited to.
 
 ## Demonstrates ##
-![demo](http://77g8ty.com1.z0.glb.clouddn.com/seimiagentdemo.gif)
+
+- basic
+
+![demo](http://img.wanghaomiao.cn/seimiagent/demo.gif)
+
+> [you can see it here,if it is  loaded fail in github](http://img.wanghaomiao.cn/seimiagent/demo.gif)
+
+- significantly simplify the login of a complex system by using js
+
+> [you can view video in blog](http://seimiagent.org/main/2016/08/06/seimiagent_js_jd_login.html).
 
 ## Http parameters that seimiAgent support ##
 Only support post.Request path:`/doload`
@@ -41,6 +50,12 @@ Determine the output format,you can choose `img` or `pdf`,default is `html`.
 
 - `script`
 A javascript script which can operate current html document and just seem like in chrome console to execute.
+
+- `ua`
+Set your userAgent
+
+- `resourceTimeout`
+Set resource request timeout,such as js resource etc.Default resource timeout 20000ms.
 
 # How to build #
 It will take a very long time to build,so it is recommended to use the premade binary file in 'Download'.
