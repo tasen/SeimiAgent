@@ -22,6 +22,7 @@
 #include <QJsonParseError>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QJsonArray>
 #include <QNetworkRequest>
 #include <QPainter>
 #include <QTemporaryFile>
@@ -42,10 +43,6 @@ SeimiPage::SeimiPage(QObject *parent) : QObject(parent)
             default_settings->setAttribute(QWebSettings::LocalStorageEnabled,true);
             default_settings->setAttribute(QWebSettings::JavascriptCanAccessClipboard,true);
             default_settings->setAttribute(QWebSettings::DeveloperExtrasEnabled,true);
-            default_settings->setAttribute(QWebSettings::OfflineStorageDatabaseEnabled,true);
-            default_settings->setAttribute(QWebSettings::OfflineWebApplicationCacheEnabled,true);
-            default_settings->setAttribute(QWebSettings::LocalStorageEnabled,true);
-            default_settings->setAttribute(QWebSettings::LocalContentCanAccessRemoteUrls,true);
 
     _isContentSet = false;
     _isProxyHasBeenSet = false;
@@ -81,7 +78,45 @@ QString SeimiPage::getContent(){
 }
 
 QString SeimiPage::getJSResult(){
-    return _evalResult.toString();
+    QString result = "";
+    switch(_evalResult.type()) {
+        case QVariant::List:
+        case QVariant::StringList: {
+            QJsonArray arr;
+            foreach(QVariant v, _evalResult.toList()) {
+                arr.append(v.toString());
+            }
+            QJsonDocument document;
+            document.setArray(arr);
+            QByteArray byteArray = document.toJson(QJsonDocument::Compact);
+            QString strJson(byteArray);
+            result = strJson;
+        }
+            break;
+        case QVariant::Map: { // <struct>
+            QJsonObject obj;
+            QMap<QString, QVariant> map = _evalResult.toMap();
+            QMapIterator<QString, QVariant> i(map);
+            while(i.hasNext()) {
+                i.next();
+                obj.insert(i.key(), i.value().toString());
+            }
+            QJsonDocument document;
+            document.setObject(obj);
+            QByteArray byteArray = document.toJson(QJsonDocument::Compact);
+            QString strJson(byteArray);
+            result = strJson;
+        }
+            break;
+        default: {
+            result = _evalResult.toString();
+        }
+    }
+    return result;
+}
+
+QString SeimiPage::getCurrentUrl(){
+    return _sWebPage->currentFrame()->url().toString();
 }
 
 bool SeimiPage::isOver(){

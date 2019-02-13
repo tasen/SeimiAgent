@@ -20,3 +20,5 @@ src/qt/qtwebkit
 *.suo
 /ipch
 /bin
+.idea/
+CMakeLists.txt

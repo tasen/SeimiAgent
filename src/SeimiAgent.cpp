@@ -39,7 +39,7 @@ SeimiAgent* SeimiAgent::instance(){
 
 int SeimiAgent::run(int argc, char *argv[]){
     QApplication a(argc, argv);
-    a.setApplicationVersion("1.3.1");
+    a.setApplicationVersion("1.3.1-1.0 by Tasen");
     a.setApplicationName("SeimiAgent");
     a.setApplicationDisplayName("A headless,standalone webkit server which make grabing dynamic web page easier.");
     QCommandLineParser parser;

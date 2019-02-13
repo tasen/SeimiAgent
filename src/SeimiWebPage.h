@@ -46,6 +46,7 @@ public:
     bool isProxySet();
     QString getContent();
     QString getJSResult();
+    QString getCurrentUrl();
     void startLoad(const QString &url);
     void setProxy(QNetworkProxy &proxy);
     void setScript(QString &script);
